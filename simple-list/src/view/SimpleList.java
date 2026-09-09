@@ -1,9 +1,9 @@
-package siplelist;
+package view;
 
 import java.util.Scanner;
 import controller.List;
 
-public class SipleList {
+public class SimpleList {
 
     private static Scanner scan = new Scanner(System.in);
     private static List objList = new List();
