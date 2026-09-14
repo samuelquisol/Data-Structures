@@ -19,31 +19,35 @@ public class SimpleList {
                     insertHead();
                 }
                 case 2 -> {
-                    through();
+                    beginningInsert();
                 }
                 case 3 -> {
-                    throughRecursive();
+                    through();
                 }
                 case 4 -> {
+                    throughRecursive();
+                }
+                case 5 -> {
                     destroy();
                 }
             }
-        } while (opc < 5);
+        } while (opc < 6);
     }
 
     private static byte menu() {
         System.out.println("\nGestion de Listas Simplemente Ligadas");
         System.out.println("1. Insertar");
-        System.out.println("2. Mostra los datos de la lista");
-        System.out.println("3. Mostrar los datos de la lista recursivamente");
-        System.out.println("4. Destruir la lista");
-        System.out.println("5. Salir");
+        System.out.println("2. Insertar al inicio");
+        System.out.println("3. Mostra los datos de la lista");
+        System.out.println("4. Mostrar los datos de la lista recursivamente");
+        System.out.println("5. Destruir la lista");
+        System.out.println("6. Salir");
 
         byte opcMenu;
         do {
             System.out.println("Ingrese la opción: ");
             opcMenu = scan.nextByte();
-        } while (opcMenu > 5);
+        } while (opcMenu > 6);
 
         return opcMenu;
     }
@@ -60,6 +64,29 @@ public class SimpleList {
 
             try {
                 if (objList.insertHead(value)) {
+                    System.out.println("Numero ingresado!..");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
+            System.out.println("\nDesea ingresar otro entero S / N :");
+            next = scan.next().toUpperCase().charAt(0);
+        } while (next == 'S');
+    }
+
+        private static void beginningInsert() {
+        System.out.println("\nIngresar numeros enteros al inicio de la lista");
+
+        char next;
+        int value;
+
+        do {
+            System.out.println("\nIngrese un numero: ");
+            value = scan.nextInt();
+
+            try {
+                if (objList.beginningInsert(value)) {
                     System.out.println("Numero ingresado!..");
                 }
             } catch (Exception e) {
