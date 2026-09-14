@@ -37,6 +37,24 @@ public class List {
         return true;
     }
 
+    public boolean beginningInsert(int value) throws Exception {
+        try {
+            Node newNode = new Node();
+            newNode.setInfo(value);
+
+            if (!this.empty()) {
+                newNode.setNextPter(firstPter);
+            }
+
+            this.currectPter = this.firstPter = newNode;
+
+        } catch (Exception e) {
+            throw new Exception("Al insertar el nodo, Intentelo de nuevo!...");
+        }
+
+        return true;
+    }
+
     public int through() throws Exception {
         int result = 0;
         try {
@@ -60,8 +78,8 @@ public class List {
 
             if (!this.empty()) {
                 Node previewPter = null;
-                
-                while ( this.currectPter != null ){
+
+                while (this.currectPter != null) {
                     previewPter = this.currectPter;
                     this.currectPter = this.currectPter.getNextPter();
                     previewPter.setNextPter(null);
