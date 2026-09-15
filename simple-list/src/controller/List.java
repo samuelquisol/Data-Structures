@@ -105,6 +105,40 @@ public class List {
         return true;
     }
 
+    public boolean endDelete() throws Exception {
+        boolean result = true;
+        try {
+            // Handle empty list case
+            if (this.empty()) {
+                result = false;
+            } else {
+                // Initialize current pointer and previous pointer
+                Node previewPter = firstPter;
+                currectPter = firstPter;
+
+                // Handle one node case
+                if (this.firstPter.getNextPter() == null) {
+                    this.firstPter = null;
+                } else {
+                    // Find previous and last node
+                    while (this.currectPter.getNextPter() != null) {
+                        previewPter = this.currectPter;
+                        this.currectPter = this.currectPter.getNextPter();
+                    }
+
+                    previewPter.setNextPter(null);
+                    currectPter = null;
+
+                }
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Al insertar el nodo, Intentelo de nuevo!...");
+        }
+
+        return result;
+    }
+
     public int through() throws Exception {
         int result = 0;
         try {

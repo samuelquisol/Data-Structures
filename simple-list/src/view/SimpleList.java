@@ -28,16 +28,19 @@ public class SimpleList {
                     endInsert();
                 }
                 case 5 -> {
-                    through();
+                    endDelete();
                 }
                 case 6 -> {
-                    throughRecursive();
+                    through();
                 }
                 case 7 -> {
+                    throughRecursive();
+                }
+                case 8 -> {
                     destroy();
                 }
             }
-        } while (opc < 8);
+        } while (opc < 9);
     }
 
     private static byte menu() {
@@ -46,16 +49,17 @@ public class SimpleList {
         System.out.println("2. Insertar al inicio");
         System.out.println("3. Eliminar al inicio");
         System.out.println("4. Insertar al final");
-        System.out.println("5. Mostrar los datos de la lista");
-        System.out.println("6. Mostrar los datos de la lista recursivamente");
-        System.out.println("7. Destruir la lista");
-        System.out.println("8. Salir");
+        System.out.println("5. Eliminar al final");
+        System.out.println("6. Mostrar los datos de la lista");
+        System.out.println("7. Mostrar los datos de la lista recursivamente");
+        System.out.println("8. Destruir la lista");
+        System.out.println("9. Salir");
 
         byte opcMenu;
         do {
             System.out.println("Ingrese la opción: ");
             opcMenu = scan.nextByte();
-        } while (opcMenu > 8);
+        } while (opcMenu > 9 || opcMenu < 1);
 
         return opcMenu;
     }
@@ -146,6 +150,25 @@ public class SimpleList {
             }
 
             System.out.println("\nDesea ingresar otro entero S / N :");
+            next = scan.next().toUpperCase().charAt(0);
+        } while (next == 'S');
+    }
+
+    private static void endDelete() {
+        System.out.println("\nEliminar numeros enteros al final de la lista");
+
+        char next;
+
+        do {
+            try {
+                if (objList.endDelete()) {
+                    System.out.println("Numero eliminado!..");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
+            System.out.println("\n¿Desea eliminar otro número al final de la lista? S / N :");
             next = scan.next().toUpperCase().charAt(0);
         } while (next == 'S');
     }
