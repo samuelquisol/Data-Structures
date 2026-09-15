@@ -56,6 +56,26 @@ public class List {
         return true;
     }
 
+    public boolean beginningDelete() throws Exception {
+        boolean result = true;
+        try {
+            // Handle empty list case
+            if (this.empty()) {
+                result = false;
+            } else {
+                // Delete nextPointer of the first node
+                this.currectPter = this.firstPter.getNextPter();
+                this.firstPter = null;
+                this.firstPter = this.currectPter;
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Al insertar el nodo, Intentelo de nuevo!...");
+        }
+
+        return result;
+    }
+
     public boolean endInsert(int value) throws Exception {
 
         try {

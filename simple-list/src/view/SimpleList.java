@@ -22,36 +22,40 @@ public class SimpleList {
                     beginningInsert();
                 }
                 case 3 -> {
-                    endInsert();
+                    beginningDelete();
                 }
                 case 4 -> {
-                    through();
+                    endInsert();
                 }
                 case 5 -> {
-                    throughRecursive();
+                    through();
                 }
                 case 6 -> {
+                    throughRecursive();
+                }
+                case 7 -> {
                     destroy();
                 }
             }
-        } while (opc < 7);
+        } while (opc < 8);
     }
 
     private static byte menu() {
         System.out.println("\nGestion de Listas Simplemente Ligadas");
         System.out.println("1. Insertar");
         System.out.println("2. Insertar al inicio");
-        System.out.println("3. Insertar al final");
-        System.out.println("4. Mostrar los datos de la lista");
-        System.out.println("5. Mostrar los datos de la lista recursivamente");
-        System.out.println("6. Destruir la lista");
-        System.out.println("7. Salir");
+        System.out.println("3. Eliminar al inicio");
+        System.out.println("4. Insertar al final");
+        System.out.println("5. Mostrar los datos de la lista");
+        System.out.println("6. Mostrar los datos de la lista recursivamente");
+        System.out.println("7. Destruir la lista");
+        System.out.println("8. Salir");
 
         byte opcMenu;
         do {
             System.out.println("Ingrese la opción: ");
             opcMenu = scan.nextByte();
-        } while (opcMenu > 6);
+        } while (opcMenu > 8);
 
         return opcMenu;
     }
@@ -98,6 +102,25 @@ public class SimpleList {
             }
 
             System.out.println("\nDesea ingresar otro entero S / N :");
+            next = scan.next().toUpperCase().charAt(0);
+        } while (next == 'S');
+    }
+
+    private static void beginningDelete() {
+        System.out.println("\nEliminar numeros enteros al inicio de la lista");
+
+        char next;
+
+        do {
+            try {
+                if (objList.beginningDelete()) {
+                    System.out.println("Numero eliminado!..");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
+            System.out.println("\n¿Desea eliminar otro número al inicio de la lista? S / N :");
             next = scan.next().toUpperCase().charAt(0);
         } while (next == 'S');
     }
