@@ -22,26 +22,30 @@ public class SimpleList {
                     beginningInsert();
                 }
                 case 3 -> {
-                    through();
+                    endInsert();
                 }
                 case 4 -> {
-                    throughRecursive();
+                    through();
                 }
                 case 5 -> {
+                    throughRecursive();
+                }
+                case 6 -> {
                     destroy();
                 }
             }
-        } while (opc < 6);
+        } while (opc < 7);
     }
 
     private static byte menu() {
         System.out.println("\nGestion de Listas Simplemente Ligadas");
         System.out.println("1. Insertar");
         System.out.println("2. Insertar al inicio");
-        System.out.println("3. Mostra los datos de la lista");
-        System.out.println("4. Mostrar los datos de la lista recursivamente");
-        System.out.println("5. Destruir la lista");
-        System.out.println("6. Salir");
+        System.out.println("3. Insertar al final");
+        System.out.println("4. Mostrar los datos de la lista");
+        System.out.println("5. Mostrar los datos de la lista recursivamente");
+        System.out.println("6. Destruir la lista");
+        System.out.println("7. Salir");
 
         byte opcMenu;
         do {
@@ -75,7 +79,7 @@ public class SimpleList {
         } while (next == 'S');
     }
 
-        private static void beginningInsert() {
+    private static void beginningInsert() {
         System.out.println("\nIngresar numeros enteros al inicio de la lista");
 
         char next;
@@ -87,6 +91,31 @@ public class SimpleList {
 
             try {
                 if (objList.beginningInsert(value)) {
+                    System.out.println("Numero ingresado!..");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
+            System.out.println("\nDesea ingresar otro entero S / N :");
+            next = scan.next().toUpperCase().charAt(0);
+        } while (next == 'S');
+    }
+
+    private static void endInsert() {
+        objList.initializeCurrent();
+
+        System.out.println("\nIngresar numeros enteros al final de la lista");
+
+        char next;
+        int value;
+
+        do {
+            System.out.println("\nIngrese un numero: ");
+            value = scan.nextInt();
+
+            try {
+                if (objList.endInsert(value)) {
                     System.out.println("Numero ingresado!..");
                 }
             } catch (Exception e) {
@@ -158,14 +187,14 @@ public class SimpleList {
 
     private static void destroy() {
         System.out.println("\nDestruyendo los nodos de la lista");
-        
+
         objList.initializeCurrent();
 
         try {
             String result = objList.destroy()
                     ? "La lista fue destruida!..."
                     : "La lista esta vacia!...";
-            
+
             System.out.println(result);
 
         } catch (Exception e) {

@@ -46,8 +46,38 @@ public class List {
                 newNode.setNextPter(firstPter);
             }
 
-            this.currectPter = this.firstPter = newNode;
+            this.firstPter = newNode;
+            this.currectPter = this.firstPter;
 
+        } catch (Exception e) {
+            throw new Exception("Al insertar el nodo, Intentelo de nuevo!...");
+        }
+
+        return true;
+    }
+
+    public boolean endInsert(int value) throws Exception {
+
+        try {
+            // Create node
+            Node newNode = new Node();
+            newNode.setInfo(value);
+
+            // Handle empty list case
+            if (this.empty()) {
+                this.firstPter = newNode;
+            } else {
+                // Initialize current pointer
+                currectPter = this.firstPter;
+
+                // Go through the whole list to find the last node
+                while (this.currectPter.getNextPter() != null) {
+                    this.currectPter = this.currectPter.getNextPter();
+                }
+
+                // Set the next pointer of the last node to the new node
+                currectPter.setNextPter(newNode);
+            }
         } catch (Exception e) {
             throw new Exception("Al insertar el nodo, Intentelo de nuevo!...");
         }
