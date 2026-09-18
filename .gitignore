@@ -1,0 +1,16 @@
+*.class
+*.log
+*.jar
+*.war
+
+# Build directories
+build/
+dist/
+nbbuild/
+nbdist/
+
+# IDE configurations
+.vscode/
+nbproject/private/
+.DS_Store
+Thumbs.db
