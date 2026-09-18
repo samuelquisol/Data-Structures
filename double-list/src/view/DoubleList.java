@@ -30,9 +30,12 @@ public class DoubleList {
                 case 5 -> {
                     removeNodes();
                 }
+                case 6 -> {
+                    deleteFirstNode();
+                }
 
             }
-        } while (opc < 6);
+        } while (opc < 7);
     }
 
     private static byte menu() {
@@ -42,13 +45,14 @@ public class DoubleList {
         System.out.println("3. Mostrar los datos de la lista en forma recursiva");
         System.out.println("4. Destruir la lista");
         System.out.println("5. Eliminar un dato de la lista");
-        System.out.println("6. para salir");
+        System.out.println("6. Eliminar el primer nodo de la lista");
+        System.out.println("7. para salir");
 
         byte opcMenu;
         do {
             System.out.println("Ingrese la opción: ");
             opcMenu = scan.nextByte();
-        } while (opcMenu > 6);
+        } while (opcMenu > 8 || opcMenu < 1);
 
         return opcMenu;
     }
@@ -172,6 +176,20 @@ public class DoubleList {
             } else {
                 System.out.println("\nNo se encontro el valor por referencia "
                         + "o la lista esta vacia!...");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    private static void deleteFirstNode() {
+        try {
+            objDoubleList.resetCurrentPointer();
+            if (objDoubleList.deleteFirstNode() == false) {
+                System.out.println(
+                        "\nLa Lista está vacía!, por favor ingrese un valor a la lista para poder eliminar el primer nodo.");
+            } else {
+                System.out.println("\nEl primer nodo de la lista fue eliminado!");
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);

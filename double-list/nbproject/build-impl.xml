@@ -194,10 +194,10 @@ is divided into following sections:
                 <isset property="have.tests"/>
             </and>
         </condition>
-        <condition property="no.javadoc.previous">
+        <condition property="no.javadoc.target">
             <and>
-                <isset property="javadoc.previous"/>
-                <isfalse value="${javadoc.previous}"/>
+                <isset property="javadoc.target"/>
+                <isfalse value="${javadoc.target}"/>
             </and>
         </condition>
         <property name="run.jvmargs" value=""/>
@@ -210,7 +210,7 @@ is divided into following sections:
             </and>
         </condition>
         <property name="javac.debug" value="true"/>
-        <property name="javadoc.previous" value="true"/>
+        <property name="javadoc.target" value="true"/>
         <property name="application.args" value=""/>
         <property name="source.encoding" value="${file.encoding}"/>
         <property name="runtime.encoding" value="${source.encoding}"/>
@@ -1527,7 +1527,7 @@ is divided into following sections:
             </fileset>
         </copy>
     </target>
-    <target depends="init,-javadoc-build" if="netbeans.home" name="-javadoc-browse" unless="no.javadoc.previous">
+    <target depends="init,-javadoc-build" if="netbeans.home" name="-javadoc-browse" unless="no.javadoc.target">
         <nbbrowse file="${dist.javadoc.dir}/index.html"/>
     </target>
     <target depends="init,-javadoc-build,-javadoc-browse" description="Build Javadoc." name="javadoc"/>
