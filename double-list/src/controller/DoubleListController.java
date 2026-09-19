@@ -23,7 +23,34 @@ public class DoubleListController {
 
     // Only one existing node validator
     private boolean onlyOneNode() {
-        return this.firsPter.getRightLink() == null && this.firsPter.getLefLink() == null;
+        return this.firsPter == this.lastPter;
+    }
+
+    // Find Node by Reference
+    public Node findByReference(int reference) throws Exception {
+        Node result = new Node();
+        resetCurrentPointer();
+
+        if (emptyNodeList()) {
+            result = null;
+        } else {
+            resetCurrentPointer();
+            targetPter = null;
+
+            while (targetPter == null) {
+
+                // Target Pointer as a Flag
+                if (this.currentPter.getInfo() == reference) {
+                    targetPter = currentPter;
+                }
+
+                currentPter = currentPter.getRightLink();
+            }
+
+            result = targetPter;
+        }
+
+        return result;
     }
 
     // Start Position
@@ -40,15 +67,67 @@ public class DoubleListController {
                 this.firsPter = newNode;
                 this.lastPter = newNode;
             } else {
-                this.firsPter.setLefLink(newNode);
+                this.firsPter.setleftLink(newNode);
                 newNode.setRightLink(this.firsPter);
-                this.firsPter = this.firsPter.getLefLink();
+                this.firsPter = this.firsPter.getleftLink();
             }
         } catch (Exception e) {
             throw new Exception("No se logro ingresar el valor!...");
         }
 
         return true;
+    }
+
+    public boolean insertBeforeReference(Node referenceNode, int value) throws Exception {
+        boolean result = true;
+        try {
+            // Existing Reference Case
+            if (referenceNode != null) {
+                // Only One Node Case
+                if (onlyOneNode()) {
+                    leftInsert(value); // Recursive call
+
+                } else {
+                    // Multiple Nodes Case
+                    Node newNode = new Node();
+                    newNode.setInfo(value);
+
+                    // First Pointer
+                    if (referenceNode == firsPter) {
+                        // Find Nodes
+                        this.currentPter = firsPter;
+
+                        // Replace Pointers
+                        this.currentPter.setleftLink(newNode);
+                        newNode.setRightLink(currentPter);
+
+                        // Reset Pointers
+                        firsPter = newNode;
+                        resetCurrentPointer();
+                    } else {
+                        // Find Nodes
+                        this.currentPter = referenceNode;
+                        this.targetPter = this.currentPter.getleftLink();
+
+                        // Replace Pointers
+                        this.currentPter.setleftLink(newNode);
+                        this.targetPter.setRightLink(newNode);
+                        newNode.setleftLink(targetPter);
+                        newNode.setRightLink(currentPter);
+
+                        // Reset Pointers
+                        resetCurrentPointer();
+                        targetPter = null;
+                    }
+                }
+            } else {
+                result = false;
+            }
+        } catch (Exception e) {
+            throw new Exception("No se logro ingresar el valor!...");
+        }
+
+        return result;
     }
 
     public boolean rightInsert(int value) throws Exception {
@@ -61,7 +140,7 @@ public class DoubleListController {
                 this.lastPter = newNode;
             } else {
                 this.lastPter.setRightLink(newNode);
-                newNode.setLefLink(this.lastPter);
+                newNode.setleftLink(this.lastPter);
                 this.lastPter = this.lastPter.getRightLink();
             }
         } catch (Exception e) {
@@ -98,7 +177,7 @@ public class DoubleListController {
                 while (this.currentPter != null) {
                     this.targetPter = this.currentPter;
                     this.targetPter.setRightLink(null);
-                    this.currentPter.setLefLink(null);
+                    this.currentPter.setleftLink(null);
                     this.currentPter = this.currentPter.getRightLink();
                     this.firsPter = this.currentPter;
                     result = true;
@@ -120,12 +199,12 @@ public class DoubleListController {
 
                 while (this.currentPter != null) {
                     if ((this.currentPter.getInfo() == reference)
-                            && (this.currentPter.getLefLink() == null)
+                            && (this.currentPter.getleftLink() == null)
                             && (this.currentPter.getRightLink() == null)) {
                         this.lastPter = this.currentPter = this.firsPter = null;
                         value = reference;
                     } else if (this.firsPter.getInfo() == reference) {
-                        this.firsPter.getRightLink().setLefLink(null);
+                        this.firsPter.getRightLink().setleftLink(null);
                         this.targetPter = this.firsPter;
                         this.firsPter = this.firsPter.getRightLink();
                         this.targetPter.setRightLink(null);
@@ -134,9 +213,9 @@ public class DoubleListController {
                         value = reference;
                     } else if (this.currentPter.getInfo() == reference) {
                         this.targetPter.setRightLink(this.currentPter.getRightLink());
-                        this.currentPter.setLefLink(null);
+                        this.currentPter.setleftLink(null);
                         if (this.currentPter.getRightLink() != null) {
-                            this.currentPter.getRightLink().setLefLink(this.targetPter);
+                            this.currentPter.getRightLink().setleftLink(this.targetPter);
                         }
                         if (this.targetPter.getRightLink() == null) {
                             this.lastPter = this.targetPter;
@@ -180,7 +259,7 @@ public class DoubleListController {
                 // Disconnect the current pointer from the list and set the target pointer's
                 // left link to null
                 this.currentPter.setRightLink(null);
-                this.targetPter.setLefLink(null);
+                this.targetPter.setleftLink(null);
                 ;
 
                 // Reset Pointers
@@ -210,10 +289,10 @@ public class DoubleListController {
             } else { // If there are multiple nodes in the list, remove the last node and update the
                      // pointers accordingly
                 // Find the previous node to the last node
-                this.targetPter = this.lastPter.getLefLink();
+                this.targetPter = this.lastPter.getleftLink();
 
                 // Clean Node Pointers
-                this.lastPter.setLefLink(null);
+                this.lastPter.setleftLink(null);
                 this.targetPter.setRightLink(null);
 
                 // Reset Pointers

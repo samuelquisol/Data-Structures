@@ -2,16 +2,16 @@
 package model;
 
 public class Node {
-    private Node lefLink;
+    private Node leftLink;
     private int info;
     private Node rightLink;
 
-    public Node getLefLink() {
-        return lefLink;
+    public Node getleftLink() {
+        return leftLink;
     }
 
-    public void setLefLink(Node lefLink) {
-        this.lefLink = lefLink;
+    public void setleftLink(Node leftLink) {
+        this.leftLink = leftLink;
     }
 
     public int getInfo() {
@@ -31,7 +31,7 @@ public class Node {
     }
 
     public Node() {
-        this.lefLink = null;
+        this.leftLink = null;
         this.info = 0;
         this.rightLink = null;
     }

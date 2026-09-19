@@ -2,6 +2,7 @@ package view;
 
 import java.util.Scanner;
 import controller.DoubleListController;
+import model.Node;
 
 public class DoubleList {
 
@@ -19,44 +20,48 @@ public class DoubleList {
                     Insert();
                 }
                 case 2 -> {
-                    through();
+                    insertBeforeReference();
                 }
                 case 3 -> {
-                    recursiveThrough();
+                    through();
                 }
                 case 4 -> {
-                    destroy();
+                    recursiveThrough();
                 }
                 case 5 -> {
-                    removeNodes();
+                    destroy();
                 }
                 case 6 -> {
-                    deleteFirstNode();
+                    removeNodes();
                 }
                 case 7 -> {
+                    deleteFirstNode();
+                }
+                case 8 -> {
                     deleteLastNode();
                 }
 
             }
-        } while (opc < 8);
+        } while (opc < 9);
     }
 
     private static byte menu() {
         System.out.println("\nGestion de Listas Doblemente Ligadas");
         System.out.println("1. Insertar valores a la lista");
-        System.out.println("2. Mostrar los datos de la lista en forma Iterativa");
-        System.out.println("3. Mostrar los datos de la lista en forma recursiva");
-        System.out.println("4. Destruir la lista");
-        System.out.println("5. Eliminar un dato de la lista");
-        System.out.println("6. Eliminar el primer nodo de la lista");
-        System.out.println("7. Eliminar el último nodo de la lista");
-        System.out.println("8. para salir");
+        System.out.println("2. Insertar valores antes de un nodo de la lista");
+        System.out.println("3. Mostrar los datos de la lista en forma Iterativa");
+        System.out.println("4. Mostrar los datos de la lista en forma recursiva");
+        System.out.println("5. Destruir la lista");
+        System.out.println("6. Eliminar un dato de la lista");
+        System.out.println("7. Eliminar el primer nodo de la lista");
+        System.out.println("8. Eliminar el último nodo de la lista");
+        System.out.println("9. para salir");
 
         byte opcMenu;
         do {
             System.out.println("Ingrese la opción: ");
             opcMenu = scan.nextByte();
-        } while (opcMenu > 9 || opcMenu < 1);
+        } while (opcMenu > 10 || opcMenu < 1);
 
         return opcMenu;
     }
@@ -90,6 +95,42 @@ public class DoubleList {
             }
 
             System.out.println("\nDesea ingresar otro entero S / N :");
+            next = scan.next().toUpperCase().charAt(0);
+        } while (next == 'S');
+    }
+
+    private static void insertBeforeReference() {
+        System.out.println("\nIngresando números enteros a la lista");
+
+        char next;
+        int value;
+        int reference;
+        Node referenceNode = new Node();
+        referenceNode = null;
+
+        do {
+            System.out.println("\nIngrese el número entero de una carga útil como referencia: ");
+            reference = scan.nextInt();
+
+            try {
+                referenceNode = objDoubleList.findByReference(reference);
+
+                if (referenceNode != null) {
+                    System.out.println("\nIngrese la carga útil del nuevo nodo: ");
+                    value = scan.nextInt();
+
+                    objDoubleList.insertBeforeReference(referenceNode, value);
+
+                    System.out.println("Numero ingresado!..");
+
+                } else {
+                    System.out.println("No se encontró el número del nodo de referencia!..");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
+            System.out.println("\nDesea ingresar otro entero antes de un nodo de referencia? S / N :");
             next = scan.next().toUpperCase().charAt(0);
         } while (next == 'S');
     }
