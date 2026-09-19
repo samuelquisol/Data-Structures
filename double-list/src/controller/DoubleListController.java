@@ -51,42 +51,6 @@ public class DoubleListController {
         return true;
     }
 
-    // Delete the first node in the list
-    public boolean deleteFirstNode() throws Exception {
-        boolean result = true;
-        try {
-            if (this.emptyNodeList()) {
-                result = false;
-
-            } else if (this.onlyOneNode()) { // If there is only one node in the list, set all pointers to null
-                firsPter = null;
-                lastPter = null;
-                targetPter = null;
-                currentPter = null;
-            } else { // If there are multiple nodes in the list, remove the first node and update the pointers accordingly
-                // Restart the current pointer to the first node
-                resetCurrentPointer();
-
-                // Get the next node after the current pointer
-                targetPter = this.currentPter.getRightLink();
-
-                // Disconnect the current pointer from the list and set the target pointer's
-                // left link to null
-                currentPter.setRightLink(null);
-                targetPter.setLefLink(null);
-
-                // Reset Pointers
-                firsPter = targetPter;
-                resetCurrentPointer();
-                targetPter = null;
-            }
-        } catch (Exception e) {
-            throw new Exception("No se logro ingresar el valor!...");
-        }
-
-        return result;
-    }
-
     public boolean rightInsert(int value) throws Exception {
         try {
             Node newNode = new Node();
@@ -191,6 +155,76 @@ public class DoubleListController {
         } catch (Exception e) {
             throw new Exception("No se logro recorrer la lista!...");
         }
+    }
+
+    // Delete the first node in the list
+    public boolean deleteFirstNode() throws Exception {
+        boolean result = true;
+        try {
+            if (this.emptyNodeList()) {
+                result = false;
+
+            } else if (this.onlyOneNode()) { // If there is only one node in the list, set all pointers to null
+                this.firsPter = null;
+                this.lastPter = null;
+                this.targetPter = null;
+                this.currentPter = null;
+            } else { // If there are multiple nodes in the list, remove the first node and update the
+                     // pointers accordingly
+                // Restart the current pointer to the first node
+                resetCurrentPointer();
+
+                // Get the next node after the current pointer
+                this.targetPter = this.currentPter.getRightLink();
+
+                // Disconnect the current pointer from the list and set the target pointer's
+                // left link to null
+                this.currentPter.setRightLink(null);
+                this.targetPter.setLefLink(null);
+                ;
+
+                // Reset Pointers
+                this.firsPter = this.targetPter;
+                resetCurrentPointer();
+                this.targetPter = null;
+            }
+        } catch (Exception e) {
+            throw new Exception("No se logro ingresar el valor!...");
+        }
+
+        return result;
+    }
+
+    // Delete the last node in the list
+    public boolean deleteLastNode() throws Exception {
+        boolean result = true;
+        try {
+            if (this.emptyNodeList()) {
+                result = false;
+
+            } else if (this.onlyOneNode()) { // If there is only one node in the list, set all pointers to null
+                this.firsPter = null;
+                this.lastPter = null;
+                this.targetPter = null;
+                this.currentPter = null;
+            } else { // If there are multiple nodes in the list, remove the last node and update the
+                     // pointers accordingly
+                // Find the previous node to the last node
+                this.targetPter = this.lastPter.getLefLink();
+
+                // Clean Node Pointers
+                this.lastPter.setLefLink(null);
+                this.targetPter.setRightLink(null);
+
+                // Reset Pointers
+                this.lastPter = this.targetPter;
+                this.targetPter = null;
+            }
+        } catch (Exception e) {
+            throw new Exception("No se logro ingresar el valor!...");
+        }
+
+        return result;
     }
 
 }

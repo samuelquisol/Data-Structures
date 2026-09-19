@@ -33,9 +33,12 @@ public class DoubleList {
                 case 6 -> {
                     deleteFirstNode();
                 }
+                case 7 -> {
+                    deleteLastNode();
+                }
 
             }
-        } while (opc < 7);
+        } while (opc < 8);
     }
 
     private static byte menu() {
@@ -46,13 +49,14 @@ public class DoubleList {
         System.out.println("4. Destruir la lista");
         System.out.println("5. Eliminar un dato de la lista");
         System.out.println("6. Eliminar el primer nodo de la lista");
-        System.out.println("7. para salir");
+        System.out.println("7. Eliminar el último nodo de la lista");
+        System.out.println("8. para salir");
 
         byte opcMenu;
         do {
             System.out.println("Ingrese la opción: ");
             opcMenu = scan.nextByte();
-        } while (opcMenu > 8 || opcMenu < 1);
+        } while (opcMenu > 9 || opcMenu < 1);
 
         return opcMenu;
     }
@@ -196,4 +200,17 @@ public class DoubleList {
         }
     }
 
+    private static void deleteLastNode() {
+        try {
+            objDoubleList.resetCurrentPointer();
+            if (objDoubleList.deleteLastNode() == false) {
+                System.out.println(
+                        "\nLa Lista está vacía!, por favor ingrese un valor a la lista para poder eliminar el último nodo.");
+            } else {
+                System.out.println("\nEl último nodo de la lista fue eliminado!");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
 }
